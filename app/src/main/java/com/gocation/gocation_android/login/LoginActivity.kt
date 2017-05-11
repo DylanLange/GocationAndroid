@@ -5,17 +5,20 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
-import com.facebook.GraphRequest
+import com.facebook.*
 import com.facebook.login.LoginResult
 import com.gocation.gocation_android.*
+import com.gocation.gocation_android.R
 import com.gocation.gocation_android.data.User
 import com.gocation.gocation_android.main.MainActivity
+import com.google.firebase.auth.FacebookAuthProvider
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONException
+
+
+
 
 /**
  * Created by dylanlange on 11/05/17.
@@ -24,10 +27,13 @@ import org.json.JSONException
 class LoginActivity: AppCompatActivity() {
 
     lateinit var mCallbackManager: CallbackManager
+    lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        mAuth = FirebaseAuth.getInstance()
 
         var prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         if(prefs.getString(ID_PREFS_KEY, "").equals("")){
@@ -43,6 +49,7 @@ class LoginActivity: AppCompatActivity() {
 
             override fun onSuccess(result: LoginResult?) {
                 if(result == null) return
+                handleFacebookAccessToken(result.accessToken)
                 val request = GraphRequest.newMeRequest(result.accessToken)
                 { returnedObject, _ ->
                     try {
@@ -105,6 +112,11 @@ class LoginActivity: AppCompatActivity() {
         var i: Intent = Intent(this, MainActivity::class.java)
         startActivity(i)
         finish()
+    }
+
+    private fun handleFacebookAccessToken(token: AccessToken) {
+        val credential = FacebookAuthProvider.getCredential(token.token)
+        mAuth.signInWithCredential(credential)
     }
 
 }
