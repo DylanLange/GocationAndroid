@@ -77,8 +77,6 @@ class LoginActivity: AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         super.onActivityResult(requestCode, resultCode, data)
         mCallbackManager.onActivityResult(requestCode, resultCode, data)
-//        var profile: Profile = Profile.getCurrentProfile()
-//        signInToFirebase(profile.id, profile.name)
     }
 
     private fun signInFacebookUser(id: String, name: String, email: String, gender: String, ageRange: String) {
@@ -98,29 +96,10 @@ class LoginActivity: AppCompatActivity() {
     }
 
     private fun signInToFirebase(id: String, name: String, email: String, gender: String, ageRange: String){
-
         FirebaseDatabase.getInstance().getReference("users").child(id).setValue(
                 User(id, name, email.toFirebaseKey(), gender, ageRange)
         )
-//        mFirebaseDatabase.child(formatEmail("daniel@paperkite.co.nz")).setValue(User(formatEmail("daniel@paperkite.co.nz"), "Daniel Grey", true, getRandomColor()))
-//        mFirebaseDatabase.child(formatEmail("will@paperkite.co.nz")).setValue(User(formatEmail("will@paperkite.co.nz"), "Will Townsend", true, getRandomColor()))
-//        mFirebaseDatabase.child(formatEmail("langedyla@gmail.com")).setValue(User(formatEmail("langedyla@gmail.com"), "Dylan Lange", true, getRandomColor()))
-//        mFirebaseDatabase.child(formatEmail("test@paperkite0.co.nz")).setValue(User(formatEmail("test@paperkite0.co.nz"), "Test 0", true, getRandomColor()))
-//        mFirebaseDatabase.child(formatEmail("test@paperkite1.co.nz")).setValue(User(formatEmail("test@paperkite1.co.nz"), "Test 1", true, getRandomColor()))
-//        mFirebaseDatabase.child(formatEmail("test@paperkite2.co.nz")).setValue(User(formatEmail("test@paperkite2.co.nz"), "Test 2", true, getRandomColor()))
-//        mFirebaseDatabase.child(formatEmail("test@paperkite3.co.nz")).setValue(User(formatEmail("test@paperkite3.co.nz"), "Test 3", true, getRandomColor()))
-//        mFirebaseDatabase.child(formatEmail("test@paperkite4.co.nz")).setValue(User(formatEmail("test@paperkite4.co.nz"), "Test 4", true, getRandomColor()))
-//        mFirebaseDatabase.child(formatEmail("test@paperkite5.co.nz")).setValue(User(formatEmail("test@paperkite5.co.nz"), "Test 5", true, getRandomColor()))
-//        mFirebaseDatabase.child(formatEmail("test@paperkite6.co.nz")).setValue(User(formatEmail("test@paperkite6.co.nz"), "Test 6", true, getRandomColor()))
-//        mFirebaseDatabase.child(formatEmail("test@paperkite7.co.nz")).setValue(User(formatEmail("test@paperkite7.co.nz"), "Test 7", true, getRandomColor()))
-//        mFirebaseDatabase.child(formatEmail("test@paperkite8.co.nz")).setValue(User(formatEmail("test@paperkite8.co.nz"), "Test 8", true, getRandomColor()))
-//        mFirebaseDatabase.child(formatEmail("test@paperkite9.co.nz")).setValue(User(formatEmail("test@paperkite9.co.nz"), "Test 9", true, getRandomColor()))
-//        mFirebaseDatabase.child(formatEmail("test@paperkite10.co.nz")).setValue(User(formatEmail("test@paperkite10.co.nz"), "Test 10", true, getRandomColor()))
-//        mFirebaseDatabase.child(formatEmail("test@paperkite11.co.nz")).setValue(User(formatEmail("test@paperkite11.co.nz"), "Test 11", true, getRandomColor()))
-
-        //need to request permissions at runtime. go to permissions screen
-//        mView.goToPermissions()
-}
+    }
 
     private fun goToMainActivity(){
         var i: Intent = Intent(this, MainActivity::class.java)
