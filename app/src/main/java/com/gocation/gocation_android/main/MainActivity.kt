@@ -2,6 +2,7 @@ package com.gocation.gocation_android.main
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import com.gocation.gocation_android.data.*
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
@@ -28,6 +29,7 @@ class MainActivity: AppCompatActivity() {
 
             override fun onDataChange(dataSnapshot: DataSnapshot?) {
                 mUsers = getAllUsersFromSnapshot(dataSnapshot)
+                Log.d("DYLAN", mUsers.toString())
             }
 
         })
