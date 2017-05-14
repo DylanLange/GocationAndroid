@@ -13,23 +13,12 @@
         tools:layout_editor_absoluteY="0dp"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginStart="8dp">
+        android:layout_marginStart="8dp"
+        android:id="@+id/toolbar2">
 
     </android.support.v7.widget.Toolbar>
 
-    <Button
-        android:id="@+id/button7"
-        android:layout_width="57dp"
-        android:layout_height="69dp"
-        android:background="@drawable/Notifications"
-        tools:layout_editor_absoluteX="275dp"
-        tools:layout_editor_absoluteY="466dp" />
 
-    <ListView
-        android:layout_width="336dp"
-        android:layout_height="473dp"
-        tools:layout_editor_absoluteX="12dp"
-        tools:layout_editor_absoluteY="78dp" />
 
 
 </android.support.constraint.ConstraintLayout>
