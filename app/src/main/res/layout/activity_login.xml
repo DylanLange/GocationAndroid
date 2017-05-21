@@ -14,7 +14,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="25dp"
             android:padding="45dp"
             android:src="@drawable/Logo"/>
 
@@ -48,6 +48,7 @@
                 android:hint="Password"
                 android:textColorHint="#ab1010"
                 android:textColor="#ab1010"/>
+
 
         </LinearLayout>
 
