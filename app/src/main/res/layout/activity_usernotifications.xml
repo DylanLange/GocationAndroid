@@ -4,15 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#ffffff">
+    android:background="#3F4555">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:weightSum="1"
-        android:background="#3F4555">
-
+        android:weightSum="1">
 
 
 
@@ -33,26 +31,25 @@
             />
 
 
+
+
     </LinearLayout>
 
     <!--&lt;!&ndash; The main content view &ndash;&gt;-->
     <!--<ListView android:id="@+id/left_drawer"-->
-        <!--android:layout_width="240dp"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_gravity="start"-->
-        <!--android:choiceMode="singleChoice"-->
-        <!--android:divider="@android:color/transparent"-->
-        <!--android:dividerHeight="0dp"-->
-        <!--android:background="#111"/>-->
-
-
-
+    <!--android:layout_width="240dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_gravity="start"-->
+    <!--android:choiceMode="singleChoice"-->
+    <!--android:divider="@android:color/transparent"-->
+    <!--android:dividerHeight="0dp"-->
+    <!--android:background="#111"/>-->
 
     <LinearLayout
         android:layout_width="320dp"
         android:layout_height="425dp"
-        android:background="#ffffff"
-        android:weightSum="1">
+        android:background="#ffffff">
+
 
 
 
