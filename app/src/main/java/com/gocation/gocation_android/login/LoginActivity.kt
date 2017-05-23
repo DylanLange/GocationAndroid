@@ -66,7 +66,7 @@ class LoginActivity: AppCompatActivity() {
                     }
                 }
                 val parameters = Bundle()
-                parameters.putString("fields", "id,name,email,gender,age_range,picture")
+                parameters.putString("fields", "id,name,email,gender,age_range,picture.type(large)")
                 request.parameters = parameters
                 request.executeAsync()
             }
