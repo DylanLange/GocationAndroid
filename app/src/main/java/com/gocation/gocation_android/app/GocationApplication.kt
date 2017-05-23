@@ -1,7 +1,9 @@
 package com.gocation.gocation_android.app
 
 import android.app.Application
+import android.content.Intent
 import com.facebook.FacebookSdk
+import nz.co.paperkite.pk_office_android.background.BackgroundBeaconService
 import org.altbeacon.beacon.BeaconManager
 import org.altbeacon.beacon.BeaconParser
 import org.altbeacon.beacon.Region
@@ -45,7 +47,7 @@ class GocationApplication:
         // if you want the Activity to launch every single time beacons come into view, remove this call.
         mRegionBootstrap.disable()
 
-//        startService(Intent(this, BackgroundBeaconService::class.java))
+        startService(Intent(this, BackgroundBeaconService::class.java))
     }
 
     override fun didExitRegion(p0: Region?) {
