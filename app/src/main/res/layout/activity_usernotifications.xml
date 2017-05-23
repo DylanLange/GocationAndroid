@@ -12,8 +12,6 @@
         android:layout_weight="1"
         android:weightSum="1">
 
-
-
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="50dp"
@@ -29,9 +27,6 @@
             android:layout_marginTop="28dp"
             android:src="@drawable/logout"
             />
-
-
-
 
     </LinearLayout>
 
