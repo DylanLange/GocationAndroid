@@ -51,21 +51,22 @@ class LoginActivity: AppCompatActivity() {
                 if(result == null) return
                 handleFacebookAccessToken(result.accessToken)
                 val request = GraphRequest.newMeRequest(result.accessToken)
-                { returnedObject, _ ->
+                { returnedObject, hi ->
                     try {
                         val id = returnedObject.getString("id")
                         val name = returnedObject.getString("name")
                         val email = returnedObject.getString("email")
                         val gender = returnedObject.getString("gender")
                         val ageRange = returnedObject.getString("age_range")
+                        val imageUrl = returnedObject.getJSONObject("picture").getJSONObject("data").getString("url")
 
-                        signInFacebookUser(id, name, email, gender, ageRange)
+                        signInFacebookUser(id, name, email, gender, ageRange, imageUrl)
                     } catch (e: JSONException) {
                         e.printStackTrace()
                     }
                 }
                 val parameters = Bundle()
-                parameters.putString("fields", "id,name,email,gender,age_range")
+                parameters.putString("fields", "id,name,email,gender,age_range,picture")
                 request.parameters = parameters
                 request.executeAsync()
             }
@@ -86,8 +87,8 @@ class LoginActivity: AppCompatActivity() {
         mCallbackManager.onActivityResult(requestCode, resultCode, data)
     }
 
-    private fun signInFacebookUser(id: String, name: String, email: String, gender: String, ageRange: String) {
-        signInToFirebase(id, name, email, gender, ageRange)
+    private fun signInFacebookUser(id: String, name: String, email: String, gender: String, ageRange: String, imageUrl: String) {
+        signInToFirebase(id, name, email, gender, ageRange, imageUrl)
         var prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         var editor: SharedPreferences.Editor = prefs.edit()
 
@@ -96,15 +97,16 @@ class LoginActivity: AppCompatActivity() {
         editor.putString(EMAIL_PREFS_KEY, email)
         editor.putString(GENDER_PREFS_KEY, gender)
         editor.putString(AGE_RANGE_PREFS_KEY, ageRange)
+        editor.putString(IMAGE_URL_PREFS_KEY, imageUrl)
 
         editor.apply()
 
         goToMainActivity()
     }
 
-    private fun signInToFirebase(id: String, name: String, email: String, gender: String, ageRange: String){
+    private fun signInToFirebase(id: String, name: String, email: String, gender: String, ageRange: String, imageUrl: String){
         FirebaseDatabase.getInstance().getReference("users").child(id).setValue(
-                User(id, name, email.toFirebaseKey(), gender, ageRange)
+                User(id, name, email.toFirebaseKey(), gender, ageRange, imageUrl)
         )
     }
 
