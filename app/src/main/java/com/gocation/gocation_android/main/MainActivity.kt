@@ -26,6 +26,7 @@ import com.gocation.gocation_android.main.profilefragment.ProfileFragment
 import com.mikepenz.materialdrawer.Drawer
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
+
 /**
  * Created by dylanlange on 11/05/17.
  */
@@ -159,5 +160,11 @@ class MainActivity: AppCompatActivity() {
 
     }
 
-}
+<<<<<<< Updated upstream
+=======
 
+
+
+
+>>>>>>> Stashed changes
+}
