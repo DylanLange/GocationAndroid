@@ -3,7 +3,7 @@ package com.gocation.gocation_android.app
 import android.app.Application
 import android.content.Intent
 import com.facebook.FacebookSdk
-import nz.co.paperkite.pk_office_android.background.BackgroundBeaconService
+import com.gocation.gocation_android.background.BackgroundBeaconService
 import org.altbeacon.beacon.BeaconManager
 import org.altbeacon.beacon.BeaconParser
 import org.altbeacon.beacon.Region

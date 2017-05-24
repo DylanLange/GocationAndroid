@@ -8,5 +8,6 @@ data class User(
         val name: String,
         val email: String,
         val gender: String,
-        val ageRange: String
+        val ageRange: String,
+        val imageUrl: String
 )

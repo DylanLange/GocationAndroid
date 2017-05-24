@@ -9,13 +9,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.gocation.gocation_android.R
 import com.gocation.gocation_android.data.User
+import com.mcxiaoke.koi.ext.onClick
+import com.squareup.picasso.Picasso
+import de.hdodenhof.circleimageview.CircleImageView
 
 
 /**
  * Created by dylanlange on 23/05/17.
  */
 
-class SharedScratchersListAdapter: ArrayAdapter<User> {
+class UsersListAdapter: ArrayAdapter<User> {
 
     val mContext: Context
     val mResId: Int
@@ -38,23 +41,18 @@ class SharedScratchersListAdapter: ArrayAdapter<User> {
         val user = getItem(position)
 
         if (user != null) {
-            val profileImage: ImageView? = v?.findViewById(R.id.iv_profile_image) as ImageView
-            val profileName: TextView? = v?.findViewById(R.id.tv_name) as TextView
+            val profileImage: ImageView? = v?.findViewById(R.id.iv_profile_image) as CircleImageView
+            val profileName: TextView? = v.findViewById(R.id.tv_name) as TextView
             val inviteBtn: TextView? = v.findViewById(R.id.btn_invite) as TextView
 
-//            Picasso.with(mContext)
-//                    .load()
-//
-//            if(user.state == "pending") {
-//                indicator?.setBackgroundColor(mContext.resources.getColor(R.color.red))
-//                codeText.text = user.code
-//                codeText.visibility = VISIBLE
-//            } else {
-//                indicator?.setBackgroundColor(mContext.resources.getColor(R.color.orange))
-//            }
-//            indicatorText?.text = user.state
-//            titleText?.text = "${user.number_of_scratchers} Scratchers"
-//            subTitleText?.text = "Sent ${user.created_at}"
+            Picasso.with(mContext)
+                    .load(user.imageUrl)
+                    .into(profileImage)
+
+            profileName?.text = user.name
+            inviteBtn?.onClick {
+                //TODO: implement this
+            }
         }
 
         return v!!

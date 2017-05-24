@@ -35,5 +35,6 @@ fun extractSingleUser(rawUser: Map<*, *>): User= User(
         rawUser["name"] as String,
         rawUser["email"] as String,
         rawUser["gender"] as String,
-        rawUser["ageRange"] as String
+        rawUser["ageRange"] as String,
+        rawUser["imageUrl"] as String
 )

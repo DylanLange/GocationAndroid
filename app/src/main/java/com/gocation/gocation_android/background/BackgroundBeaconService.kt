@@ -1,4 +1,4 @@
-package nz.co.paperkite.pk_office_android.background
+package com.gocation.gocation_android.background
 
 import android.app.Service
 import android.content.Intent
