@@ -6,24 +6,23 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v4.app.ActivityCompat
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.PermissionChecker
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
+import android.view.ViewGroup
 import co.zsmb.materialdrawerkt.builders.accountHeader
 import co.zsmb.materialdrawerkt.builders.drawer
 import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
 import co.zsmb.materialdrawerkt.draweritems.profile.profile
 import com.facebook.login.LoginManager
-import com.firststarcommunications.ampmscratchpower.android.adapters.UsersListAdapter
 import com.gocation.gocation_android.*
 import com.gocation.gocation_android.background.BackgroundBeaconService
-import com.gocation.gocation_android.data.*
 import com.gocation.gocation_android.login.LoginActivity
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
+import com.gocation.gocation_android.main.listfragment.ListFragment
+import com.gocation.gocation_android.main.profilefragment.ProfileFragment
 import com.mikepenz.materialdrawer.Drawer
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
@@ -35,7 +34,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity: AppCompatActivity() {
     val PERMISSION_REQUEST_CODE: Int = 69
 
-    lateinit private var mUsers: List<User>
     lateinit private var mSharedPreferences: SharedPreferences
     lateinit private var mEditor: SharedPreferences.Editor
     lateinit private var mDrawer: Drawer
@@ -45,6 +43,7 @@ class MainActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        viewpager.adapter = ViewPagerAdapter(supportFragmentManager)
         mBeaconServiceIntent = Intent(this@MainActivity, BackgroundBeaconService::class.java)
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         mEditor = mSharedPreferences.edit()
@@ -103,44 +102,6 @@ class MainActivity: AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        listenForAllUsers(object: ValueEventListener {
-
-            override fun onCancelled(databaseError: DatabaseError?) { }
-
-            override fun onDataChange(dataSnapshot: DataSnapshot?) {
-                mUsers = getAllUsersFromSnapshot(dataSnapshot)
-                Log.d("DYLAN", mUsers.toString())
-                listview.adapter = UsersListAdapter(this@MainActivity, R.layout.list_item_user, mUsers.toMutableList())
-            }
-
-        })
-
-        listenForChangeToUsers(object: ChildEventListener{
-
-            override fun onCancelled(databaseError: DatabaseError?) { }
-
-            override fun onChildMoved(dataSnapshot: DataSnapshot?, previousChildName: String?) { }
-
-            override fun onChildChanged(dataSnapshot: DataSnapshot?, previousChildName: String?) {
-                var changedUser: User = getUserFromSnapshot(dataSnapshot)
-                //handle updating view here
-            }
-
-            override fun onChildAdded(dataSnapshot: DataSnapshot?, previousChildName: String?) {
-                var addedUser: User = getUserFromSnapshot(dataSnapshot)
-                //handle updating view here
-            }
-
-            override fun onChildRemoved(dataSnapshot: DataSnapshot?) {
-                var removedUser: User = getUserFromSnapshot(dataSnapshot)
-                //handle updating view here
-            }
-
-        })
-    }
-
     private fun setupActionBar() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -156,6 +117,47 @@ class MainActivity: AppCompatActivity() {
     }
 
     private fun alternateBtnClicked() {
+        viewpager.setCurrentItem(1, true)
+    }
+
+    class ViewPagerAdapter(fm : FragmentManager) : FragmentStatePagerAdapter(fm) {
+
+        val NUM_PAGES : Int = 2
+        lateinit var mListFragment: ListFragment
+        lateinit var mProfileFragment: ProfileFragment
+
+        override fun instantiateItem(container: ViewGroup?, position: Int): Any {
+            when(position){
+                0 -> {
+                    mListFragment = super.instantiateItem(container, position) as ListFragment
+                    return mListFragment
+                }
+                1 -> {
+                    mProfileFragment = super.instantiateItem(container, position) as ProfileFragment
+                    return mProfileFragment
+                }
+                else -> return super.instantiateItem(container, position)
+            }
+        }
+
+        override fun getItem(position: Int): Fragment? {
+            if (position == 0) {
+                return ListFragment.newInstance()
+            } else if (position == 1) {
+                return ProfileFragment.newInstance()
+            } else {
+                return null
+            }
+        }
+
+        override fun getCount(): Int {
+            return NUM_PAGES
+        }
+
+        override fun getPageTitle(position: Int): CharSequence {
+            return super.getPageTitle(position)
+        }
 
     }
+
 }
