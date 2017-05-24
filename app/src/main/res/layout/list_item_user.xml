@@ -1,38 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_profile_image"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginLeft="24dp"/>
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="24dp"
+        tools:src="@drawable/ic_profile"/>
 
-    <TextView
-        android:id="@+id/tv_name"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="16dp"
-        android:textSize="20dp"/>
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textColor="@color/colorPrimary"
+            tools:text="Dylan Lange"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Last seen at: WIG401"
+            android:textColor="#af546e7a"/>
+
+    </LinearLayout>
 
     <View
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"/>
 
-    <TextView
+    <ImageView
         android:id="@+id/btn_invite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginRight="24dp"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:textColor="@color/accent"
-        android:text="INVITE"/>
+        android:src="@drawable/ic_map"/>
 
 </LinearLayout>

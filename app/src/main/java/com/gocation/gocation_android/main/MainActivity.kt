@@ -25,6 +25,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.mikepenz.materialdrawer.Drawer
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -56,13 +57,19 @@ class MainActivity: AppCompatActivity() {
         var email: String = mSharedPreferences.getString(EMAIL_PREFS_KEY, "")
         var imageUrl: String = mSharedPreferences.getString(IMAGE_URL_PREFS_KEY, "")
 
+        Picasso.with(this)
+                .load(imageUrl)
+                .into(iv_action_bar_image)
+
         mDrawer = drawer {
             accountHeader {
+                background = R.color.material_blue_grey_900
                 profile(name, email) {
                     iconUrl = imageUrl
                 }
             }
-            primaryItem("Logout") {
+            primaryItem("Log out") {
+                icon = R.drawable.ic_logout
                 onClick { _ ->
                     mEditor.putString(ID_PREFS_KEY, null)
                     mEditor.apply()
@@ -74,6 +81,7 @@ class MainActivity: AppCompatActivity() {
                 }
             }
         }
+
     }
 
     private fun requestLocationPermissions() {

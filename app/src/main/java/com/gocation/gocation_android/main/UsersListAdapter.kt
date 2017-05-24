@@ -43,7 +43,7 @@ class UsersListAdapter: ArrayAdapter<User> {
         if (user != null) {
             val profileImage: ImageView? = v?.findViewById(R.id.iv_profile_image) as CircleImageView
             val profileName: TextView? = v.findViewById(R.id.tv_name) as TextView
-            val inviteBtn: TextView? = v.findViewById(R.id.btn_invite) as TextView
+            val inviteBtn: ImageView? = v.findViewById(R.id.btn_invite) as ImageView
 
             Picasso.with(mContext)
                     .load(user.imageUrl)
