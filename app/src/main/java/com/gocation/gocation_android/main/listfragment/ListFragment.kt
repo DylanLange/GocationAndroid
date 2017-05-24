@@ -38,7 +38,6 @@ class ListFragment: android.support.v4.app.Fragment() {
 
             override fun onDataChange(dataSnapshot: DataSnapshot?) {
                 mUsers = getAllUsersFromSnapshot(dataSnapshot)
-                Log.d("DYLAN", mUsers.toString())
                 listview.adapter = UsersListAdapter(activity, R.layout.list_item_user, mUsers.toMutableList())
             }
 
