@@ -10,13 +10,13 @@ import android.support.v4.content.ContextCompat
 import android.support.v4.content.PermissionChecker
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.view.LayoutInflater
+import co.zsmb.materialdrawerkt.builders.accountHeader
 import co.zsmb.materialdrawerkt.builders.drawer
 import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
+import co.zsmb.materialdrawerkt.draweritems.profile.profile
 import com.facebook.login.LoginManager
 import com.firststarcommunications.ampmscratchpower.android.adapters.UsersListAdapter
-import com.gocation.gocation_android.ID_PREFS_KEY
-import com.gocation.gocation_android.R
+import com.gocation.gocation_android.*
 import com.gocation.gocation_android.background.BackgroundBeaconService
 import com.gocation.gocation_android.data.*
 import com.gocation.gocation_android.login.LoginActivity
@@ -38,12 +38,13 @@ class MainActivity: AppCompatActivity() {
     lateinit private var mSharedPreferences: SharedPreferences
     lateinit private var mEditor: SharedPreferences.Editor
     lateinit private var mDrawer: Drawer
-    val mBeaconServiceIntent: Intent = Intent(this@MainActivity, BackgroundBeaconService::class.java)
+    lateinit var mBeaconServiceIntent: Intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        mBeaconServiceIntent = Intent(this@MainActivity, BackgroundBeaconService::class.java)
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         mEditor = mSharedPreferences.edit()
 
@@ -51,7 +52,16 @@ class MainActivity: AppCompatActivity() {
         requestLocationPermissions()
         startService(mBeaconServiceIntent)
 
+        var name: String = mSharedPreferences.getString(NAME_PREFS_KEY, "")
+        var email: String = mSharedPreferences.getString(EMAIL_PREFS_KEY, "")
+        var imageUrl: String = mSharedPreferences.getString(IMAGE_URL_PREFS_KEY, "")
+
         mDrawer = drawer {
+            accountHeader {
+                profile(name, email) {
+                    iconUrl = imageUrl
+                }
+            }
             primaryItem("Logout") {
                 onClick { _ ->
                     mEditor.putString(ID_PREFS_KEY, null)
@@ -124,20 +134,17 @@ class MainActivity: AppCompatActivity() {
     }
 
     private fun setupActionBar() {
-        supportActionBar?.setDisplayShowHomeEnabled(false)
+        setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        val mInflater = LayoutInflater.from(this)
-
-        val customView = mInflater.inflate(R.layout.generic_action_bar, null)
-        customView.findViewById(R.id.btn_menu).setOnClickListener { menuBtnClicked() }
-        customView.findViewById(R.id.btn_alternate).setOnClickListener { alternateBtnClicked() }
-
-        supportActionBar?.customView = customView
-        supportActionBar?.setDisplayShowCustomEnabled(true)
+        btn_menu.setOnClickListener { menuBtnClicked() }
+        btn_alternate.setOnClickListener { alternateBtnClicked() }
     }
 
     private fun menuBtnClicked() {
-        mDrawer.openDrawer()
+        if(!mDrawer.isDrawerOpen)
+            mDrawer.openDrawer()
+        else
+            mDrawer.closeDrawer()
     }
 
     private fun alternateBtnClicked() {
