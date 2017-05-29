@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import co.zsmb.materialdrawerkt.builders.accountHeader
 import co.zsmb.materialdrawerkt.builders.drawer
 import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
+import co.zsmb.materialdrawerkt.draweritems.badgeable.secondaryItem
 import co.zsmb.materialdrawerkt.draweritems.profile.profile
 import com.facebook.login.LoginManager
 import com.gocation.gocation_android.*
@@ -27,6 +28,8 @@ import com.mcxiaoke.koi.ext.onClick
 import com.mikepenz.materialdrawer.Drawer
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.message_home.*
+
 /**
  * Created by dylanlange on 11/05/17.
  */
@@ -75,7 +78,61 @@ class MainActivity: AppCompatActivity() {
                     iconUrl = imageUrl
                 }
             }
-            primaryItem("Log out") {
+
+
+            primaryItem("My Profile") {
+                icon = R.drawable.ic_profile
+                onClick { _ ->
+                    var intent: Intent = Intent(this@MainActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    false
+                }
+
+            }
+
+
+
+            primaryItem("Event Info") {
+                icon = R.drawable.ic_info
+                onClick { _ ->
+                    var intent: Intent = Intent(this@MainActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    false
+                }
+
+            }
+
+
+
+            primaryItem("My Map") {
+                icon = R.drawable.ic_profile
+                onClick { _ ->
+                    var intent: Intent = Intent(this@MainActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    false
+                }
+
+            }
+
+
+
+            primaryItem("My Notifications") {
+                icon = R.drawable.ic_notifications
+                onClick { _ ->
+                    var intent: Intent = Intent(this@MainActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    false
+                }
+
+            }
+
+
+
+            secondaryItem("Log out") {
                 icon = R.drawable.ic_logout
                 onClick { _ ->
                     mEditor.putString(ID_PREFS_KEY, null)
@@ -86,7 +143,15 @@ class MainActivity: AppCompatActivity() {
                     finish()
                     false
                 }
+
+
+
+
+
             }
+
+
+
         }
 
     }
