@@ -23,6 +23,7 @@ import com.gocation.gocation_android.background.BackgroundBeaconService
 import com.gocation.gocation_android.login.LoginActivity
 import com.gocation.gocation_android.main.listfragment.ListFragment
 import com.gocation.gocation_android.main.profilefragment.ProfileFragment
+import com.mcxiaoke.koi.ext.onClick
 import com.mikepenz.materialdrawer.Drawer
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
@@ -41,6 +42,14 @@ class MainActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
+        btn_message.onClick { var i: Intent = Intent(this@MainActivity, messageHome::class.java )
+        startActivity(i)
+
+        }
+
+
 
         viewpager.adapter = ViewPagerAdapter(supportFragmentManager)
         mBeaconServiceIntent = Intent(this@MainActivity, BackgroundBeaconService::class.java)
@@ -107,6 +116,7 @@ class MainActivity: AppCompatActivity() {
         btn_menu.setOnClickListener { menuBtnClicked() }
         btn_alternate.setOnClickListener { alternateBtnClicked() }
     }
+
 
     private fun menuBtnClicked() {
         if(!mDrawer.isDrawerOpen)
