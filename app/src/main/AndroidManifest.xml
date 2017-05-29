@@ -20,6 +20,12 @@
         <activity
             android:name=".main.MainActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
+            android:name=".main.chatMessage"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
+            android:name=".main.messageHome"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
         <activity
             android:name=".login.LoginActivity">
