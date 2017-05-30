@@ -53,6 +53,7 @@ class MainActivity: AppCompatActivity() {
         }
 
 
+        //TODO: Add custom font (Raleway)
 
         viewpager.adapter = ViewPagerAdapter(supportFragmentManager)
         mBeaconServiceIntent = Intent(this@MainActivity, BackgroundBeaconService::class.java)
@@ -80,8 +81,35 @@ class MainActivity: AppCompatActivity() {
             }
 
 
-            primaryItem("My Profile") {
+            //TODO: Fix these links to activities
+
+
+
+            primaryItem("Friends") {
                 icon = R.drawable.ic_profile
+                onClick { _ ->
+                    var intent: Intent = Intent(this@MainActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    false
+                }
+
+            }
+
+
+            primaryItem("Messages") {
+                icon = R.drawable.ic_message
+                onClick { _ ->
+                    var intent: Intent = Intent(this@MainActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    false
+                }
+
+            }
+
+            primaryItem("Notifications") {
+                icon = R.drawable.ic_notifications
                 onClick { _ ->
                     var intent: Intent = Intent(this@MainActivity, MainActivity::class.java)
                     startActivity(intent)
@@ -96,7 +124,7 @@ class MainActivity: AppCompatActivity() {
             primaryItem("Event Info") {
                 icon = R.drawable.ic_info
                 onClick { _ ->
-                    var intent: Intent = Intent(this@MainActivity, MainActivity::class.java)
+                    var intent: Intent = Intent(this@MainActivity, eventInfo::class.java)
                     startActivity(intent)
                     finish()
                     false
@@ -106,10 +134,10 @@ class MainActivity: AppCompatActivity() {
 
 
 
-            primaryItem("My Map") {
-                icon = R.drawable.ic_profile
+            primaryItem("Event Map") {
+                icon = R.drawable.ic_map
                 onClick { _ ->
-                    var intent: Intent = Intent(this@MainActivity, MainActivity::class.java)
+                    var intent: Intent = Intent(this@MainActivity, eventMap::class.java)
                     startActivity(intent)
                     finish()
                     false
@@ -119,20 +147,10 @@ class MainActivity: AppCompatActivity() {
 
 
 
-            primaryItem("My Notifications") {
-                icon = R.drawable.ic_notifications
-                onClick { _ ->
-                    var intent: Intent = Intent(this@MainActivity, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    false
-                }
-
-            }
 
 
 
-            secondaryItem("Log out") {
+            primaryItem("Log out") {
                 icon = R.drawable.ic_logout
                 onClick { _ ->
                     mEditor.putString(ID_PREFS_KEY, null)
@@ -233,6 +251,10 @@ class MainActivity: AppCompatActivity() {
         }
 
     }
+
+
+
+
 
 }
 
