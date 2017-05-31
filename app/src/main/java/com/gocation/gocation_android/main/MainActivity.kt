@@ -28,7 +28,7 @@ import com.mcxiaoke.koi.ext.onClick
 import com.mikepenz.materialdrawer.Drawer
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.message_home.*
+
 
 /**
  * Created by dylanlange on 11/05/17.
@@ -47,8 +47,9 @@ class MainActivity: AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        btn_message.onClick { var i: Intent = Intent(this@MainActivity, messageHome::class.java )
-        startActivity(i)
+        btn_message.onClick {
+            var i: Intent = Intent(this@MainActivity, messageHome::class.java)
+            startActivity(i)
 
         }
 
@@ -82,7 +83,6 @@ class MainActivity: AppCompatActivity() {
 
 
             //TODO: Fix these links to activities
-
 
 
             primaryItem("Friends") {
@@ -163,11 +163,7 @@ class MainActivity: AppCompatActivity() {
                 }
 
 
-
-
-
             }
-
 
 
         }
@@ -202,7 +198,7 @@ class MainActivity: AppCompatActivity() {
 
 
     private fun menuBtnClicked() {
-        if(!mDrawer.isDrawerOpen)
+        if (!mDrawer.isDrawerOpen)
             mDrawer.openDrawer()
         else
             mDrawer.closeDrawer()
@@ -212,14 +208,14 @@ class MainActivity: AppCompatActivity() {
         viewpager.setCurrentItem(1, true)
     }
 
-    class ViewPagerAdapter(fm : FragmentManager) : FragmentStatePagerAdapter(fm) {
+    class ViewPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
-        val NUM_PAGES : Int = 2
+        val NUM_PAGES: Int = 2
         lateinit var mListFragment: ListFragment
         lateinit var mProfileFragment: ProfileFragment
 
         override fun instantiateItem(container: ViewGroup?, position: Int): Any {
-            when(position){
+            when (position) {
                 0 -> {
                     mListFragment = super.instantiateItem(container, position) as ListFragment
                     return mListFragment
@@ -251,10 +247,6 @@ class MainActivity: AppCompatActivity() {
         }
 
     }
-
-
-
-
 
 }
 
