@@ -46,6 +46,13 @@
             </intent-filter>
         </activity>
 
+
+
+
+
+        Read more: http://www.androidhub4you.com/2012/07/how-to-create-popup-window-in-android.html#ixzz4ie7of192
+
+
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"

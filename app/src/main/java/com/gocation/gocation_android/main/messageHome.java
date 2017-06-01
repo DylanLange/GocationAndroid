@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.ListView;
 import android.text.format.DateFormat;
+import android.widget.Button;
 
 
 
@@ -25,20 +26,33 @@ public class messageHome extends AppCompatActivity {
     private static final int SIGN_IN_REQUEST_CODE = 100;
     private FirebaseListAdapter<chatMessage> adapter;
 
-        @Override
+
+
+
+
+
+
+    @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.message_home);
 
 
+
+//        Button btn = (Button)findViewById(R.id.back_btn);
+//
+//            btn.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    startActivity(new Intent(messageHome.this, MainActivity.class));
+//                }
+//            });
+
+
+
             if(FirebaseAuth.getInstance().getCurrentUser() == null) {
                 // Start sign in/sign up activity
-                startActivityForResult(
-                        AuthUI.getInstance()
-                                .createSignInIntentBuilder()
-                                .build(),
-                        SIGN_IN_REQUEST_CODE
-                );
+
             } else {
                 // User is already signed in. Therefore, display
                 // a welcome Toast
@@ -52,8 +66,6 @@ public class messageHome extends AppCompatActivity {
                 // Load chat room contents
                 displayChatMessages();
             }
-
-
 
 
         }

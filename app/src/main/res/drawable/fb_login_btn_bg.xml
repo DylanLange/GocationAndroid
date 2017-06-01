@@ -3,14 +3,16 @@
 <item android:state_pressed="true">
     <shape>
         <corners android:radius="100dp"/>
-            <solid android:color="@color/com_facebook_blue"/>
+            <solid android:color="#f4442e"/>
     </shape>
 </item>
     <item>
         <shape>
             <corners android:radius="100dp"/>
-            <solid android:color="@color/com_facebook_blue"/>
+            <stroke android:color="#f4442e"
+                    android:width="2dp" />
         </shape>
+
 
     </item>
 

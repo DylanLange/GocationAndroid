@@ -30,6 +30,21 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 
 
+
+import android.widget.Button;
+import android.view.View;
+import android.widget.TextView
+import android.widget.LinearLayout
+import android.widget.PopupWindow
+
+
+import android.app.Activity;
+import android.view.Gravity;
+
+import android.view.ViewGroup.LayoutParams;
+import co.zsmb.materialdrawerkt.draweritems.divider
+
+
 /**
  * Created by dylanlange on 11/05/17.
  */
@@ -42,16 +57,27 @@ class MainActivity: AppCompatActivity() {
     lateinit private var mDrawer: Drawer
     lateinit var mBeaconServiceIntent: Intent
 
+
+    //popup notf window vars
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
 
-        btn_message.onClick {
+
+
+    //notifcation popup window
+
+        btn_notif.onClick {
             var i: Intent = Intent(this@MainActivity, messageHome::class.java)
             startActivity(i)
 
         }
+
 
 
         //TODO: Add custom font (Raleway)
@@ -69,17 +95,19 @@ class MainActivity: AppCompatActivity() {
         var email: String = mSharedPreferences.getString(EMAIL_PREFS_KEY, "")
         var imageUrl: String = mSharedPreferences.getString(IMAGE_URL_PREFS_KEY, "")
 
+
         Picasso.with(this)
                 .load(imageUrl)
                 .into(iv_action_bar_image)
 
         mDrawer = drawer {
             accountHeader {
-                background = R.color.material_blue_grey_900
+                background = R.drawable.login_bg
                 profile(name, email) {
                     iconUrl = imageUrl
                 }
             }
+
 
 
             //TODO: Fix these links to activities
@@ -96,17 +124,20 @@ class MainActivity: AppCompatActivity() {
 
             }
 
+            divider {  }
 
             primaryItem("Messages") {
                 icon = R.drawable.ic_message
                 onClick { _ ->
-                    var intent: Intent = Intent(this@MainActivity, MainActivity::class.java)
+                    var intent: Intent = Intent(this@MainActivity, messageHome::class.java)
                     startActivity(intent)
                     finish()
                     false
                 }
 
             }
+
+
 
             primaryItem("Notifications") {
                 icon = R.drawable.ic_notifications
@@ -119,7 +150,7 @@ class MainActivity: AppCompatActivity() {
 
             }
 
-
+            divider {  }
 
             primaryItem("Event Info") {
                 icon = R.drawable.ic_info
@@ -133,11 +164,10 @@ class MainActivity: AppCompatActivity() {
             }
 
 
-
             primaryItem("Event Map") {
                 icon = R.drawable.ic_map
                 onClick { _ ->
-                    var intent: Intent = Intent(this@MainActivity, eventMap::class.java)
+                    var intent: Intent = Intent(this@MainActivity, mapView::class.java)
                     startActivity(intent)
                     finish()
                     false
@@ -148,7 +178,7 @@ class MainActivity: AppCompatActivity() {
 
 
 
-
+            divider {  }
 
             primaryItem("Log out") {
                 icon = R.drawable.ic_logout
