@@ -48,12 +48,6 @@ public class messageHome extends AppCompatActivity {
 //                }
 //            });
 
-
-
-            if(FirebaseAuth.getInstance().getCurrentUser() == null) {
-                // Start sign in/sign up activity
-
-            } else {
                 // User is already signed in. Therefore, display
                 // a welcome Toast
                 Toast.makeText(this,
@@ -68,7 +62,6 @@ public class messageHome extends AppCompatActivity {
             }
 
 
-        }
 
     private void displayChatMessages() {
 
