@@ -91,26 +91,11 @@ class MainActivity: AppCompatActivity() {
                 }
             }
 
-            //TODO: Fix these links to activities
-            primaryItem("Friends") {
-                icon = R.drawable.ic_profile
-                onClick { _ ->
-                    var intent: Intent = Intent(this@MainActivity, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    false
-                }
-
-            }
-
-            divider {  }
-
             primaryItem("Messages") {
                 icon = R.drawable.ic_message
                 onClick { _ ->
                     var intent: Intent = Intent(this@MainActivity, MessagingActivity::class.java)
                     startActivity(intent)
-                    finish()
                     false
                 }
             }
@@ -118,9 +103,9 @@ class MainActivity: AppCompatActivity() {
             primaryItem("Notifications") {
                 icon = R.drawable.ic_notifications
                 onClick { _ ->
-                    var intent: Intent = Intent(this@MainActivity, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
+//                    var intent: Intent = Intent(this@MainActivity, MainActivity::class.java)
+//                    startActivity(intent)
+//                    finish()
                     false
                 }
 

@@ -12,6 +12,7 @@ import com.facebook.*
 import com.facebook.login.LoginResult
 import com.gocation.gocation_android.*
 import com.gocation.gocation_android.R
+import com.gocation.gocation_android.data.NotificationHistory
 import com.gocation.gocation_android.data.User
 import com.gocation.gocation_android.main.MainActivity
 import com.google.firebase.auth.FacebookAuthProvider
@@ -19,8 +20,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONException
-
-
 
 
 /**
@@ -45,10 +44,6 @@ class LoginActivity: AppCompatActivity() {
         videoview.start()
 
         videoview.setOnPreparedListener(OnPreparedListener { mp -> mp.isLooping = true })
-
-
-
-
 
         mAuth = FirebaseAuth.getInstance()
 
@@ -123,7 +118,7 @@ class LoginActivity: AppCompatActivity() {
 
     private fun signInToFirebase(id: String, name: String, email: String, gender: String, ageRange: String, imageUrl: String){
         FirebaseDatabase.getInstance().getReference("users").child(id).setValue(
-                User(id, name, email.toFirebaseKey(), gender, ageRange, imageUrl, "Unknown")
+                User(id, name, email.toFirebaseKey(), gender, ageRange, imageUrl, "Unknown", NotificationHistory(emptyMap<String, String>()))
         )
     }
 
@@ -137,11 +132,6 @@ class LoginActivity: AppCompatActivity() {
         val credential = FacebookAuthProvider.getCredential(token.token)
         mAuth.signInWithCredential(credential)
     }
-
-
-
-
-
 
 }
 

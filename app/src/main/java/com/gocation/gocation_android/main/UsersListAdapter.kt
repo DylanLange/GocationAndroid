@@ -43,7 +43,6 @@ class UsersListAdapter: ArrayAdapter<User> {
             val profileImage: ImageView? = v?.findViewById(R.id.iv_profile_image) as CircleImageView
             val profileName: TextView? = v.findViewById(R.id.tv_name) as TextView
             val lastSeenAt: TextView? = v.findViewById(R.id.tv_last_seen_at) as TextView
-//            val inviteBtn: ImageView? = v.findViewById(R.id.btn_invite) as ImageView
 
             Picasso.with(mContext)
                     .load(user.imageUrl)
@@ -51,9 +50,6 @@ class UsersListAdapter: ArrayAdapter<User> {
 
             profileName?.text = user.name
             lastSeenAt?.text = user.lastSeenAt
-//            inviteBtn?.onClick {
-//
-//            }
         }
 
         return v!!

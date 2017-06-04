@@ -11,11 +11,15 @@ import android.preference.PreferenceManager
 import android.support.v7.app.NotificationCompat
 import com.facebook.FacebookSdk
 import com.gocation.gocation_android.ID_PREFS_KEY
+import com.gocation.gocation_android.IMAGE_URL_PREFS_KEY
 import com.gocation.gocation_android.R
 import com.gocation.gocation_android.background.BackgroundBeaconService
 import com.gocation.gocation_android.data.User
+import com.gocation.gocation_android.data.extractSingleMessage
 import com.gocation.gocation_android.data.extractSingleUser
 import com.gocation.gocation_android.main.MainActivity
+import com.gocation.gocation_android.messaging.ChatMessage
+import com.gocation.gocation_android.messaging.MessagingActivity
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -73,6 +77,21 @@ class GocationApplication:
             }
         })
 
+        FirebaseDatabase.getInstance().reference.child("messages").addChildEventListener(object: ChildEventListener{
+            override fun onChildMoved(snapshot: DataSnapshot?, p1: String?) { }
+
+            override fun onChildAdded(snapshot: DataSnapshot?, p1: String?) {
+                var msg: ChatMessage = extractSingleMessage(snapshot?.value as Map<*,*>)
+                sendNotification(msg)
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot?) { }
+
+            override fun onCancelled(error: DatabaseError?) { }
+
+            override fun onChildChanged(snapshot: DataSnapshot?, p1: String?) { }
+        })
+
     }
 
     private fun sendNotification(user: User) {
@@ -82,18 +101,57 @@ class GocationApplication:
         val contentIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
 
         val b = NotificationCompat.Builder(this)
+        val notifTitle: String = "Activity: ${user.name}"
+        val notifBody: String = "Seen at: ${user.lastSeenAt}"
 
         b.setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setWhen(System.currentTimeMillis())
                 .setSmallIcon(R.drawable.ic_logo_g)
-                .setContentTitle(user.name)
-                .setContentText("Seen at: ${user.lastSeenAt}")
+                .setContentTitle(notifTitle)
+                .setContentText(notifBody)
                 .setContentIntent(contentIntent)
                 .setContentInfo("Info")
 
         var notifManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notifManager.notify(user.id.hashCode(), b.build())
+
+        updateNotifHistory(notifTitle, notifBody)
+    }
+
+    private fun sendNotification(msg: ChatMessage) {
+        var prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        if(msg.imageUrl == prefs.getString(IMAGE_URL_PREFS_KEY, "")) return//if the change is your own user, don't notify
+        val intent = Intent(this, MessagingActivity::class.java)
+        val contentIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
+
+        val b = NotificationCompat.Builder(this)
+        val notifTitle: String = "From: ${msg.sender}"
+        val notifBody: String = "Message: ${msg.body}"
+
+        b.setAutoCancel(true)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.drawable.ic_logo_g)
+                .setContentTitle(notifTitle)
+                .setContentText(notifBody)
+                .setContentIntent(contentIntent)
+                .setContentInfo("Info")
+
+        var notifManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notifManager.notify(msg.sender.hashCode(), b.build())
+
+        updateNotifHistory(notifTitle, notifBody)
+    }
+
+    private fun updateNotifHistory(notifTitle: String, notifBody: String) {
+        var prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        var id: String = prefs.getString(ID_PREFS_KEY, "")
+        FirebaseDatabase.getInstance().reference.child("users/$id/notificationHistory").updateChildren(
+                mapOf(
+                        notifTitle to notifBody
+                )
+        )
     }
 
     override fun didDetermineStateForRegion(p0: Int, p1: Region?) {
