@@ -9,8 +9,7 @@ import android.os.Parcel
 import android.os.RemoteException
 import android.preference.PreferenceManager
 import android.util.Log
-import com.gocation.gocation_android.BEACONS
-import com.gocation.gocation_android.EMAIL_PREFS_KEY
+import com.gocation.gocation_android.*
 import com.gocation.gocation_android.data.SimpleBeacon
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -26,11 +25,15 @@ class BackgroundBeaconService: Service(), BeaconConsumer {
 
     val TAG: String = BackgroundBeaconService::class.java.simpleName
 
-    val MAX_NO_BEACON_PINGS: Int = 5//how many times the phone will consecutively need to not find a beacon to say not in office
-
     var mBeacons: List<SimpleBeacon> = emptyList()
-    var mNoBeaconCount: Int = MAX_NO_BEACON_PINGS
+
+    lateinit var mId: String
+    lateinit var mName: String
     lateinit var mEmail: String
+    lateinit var mGender: String
+    lateinit var mAgeRange: String
+    lateinit var mImageUrl: String
+
     lateinit var mBeaconManager: BeaconManager
     lateinit var mBackgroundPowerSaver: BackgroundPowerSaver//apparently holding reference to this in the activity saves about 60% battery?
 
@@ -46,7 +49,12 @@ class BackgroundBeaconService: Service(), BeaconConsumer {
 
         var prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
 
-        mEmail = prefs.getString(EMAIL_PREFS_KEY, "NO_EMAIL")
+        mId = prefs.getString(ID_PREFS_KEY, "")
+        mName = prefs.getString(NAME_PREFS_KEY, "")
+        mEmail = prefs.getString(EMAIL_PREFS_KEY, "")
+        mGender = prefs.getString(GENDER_PREFS_KEY, "")
+        mAgeRange = prefs.getString(AGE_RANGE_PREFS_KEY, "")
+        mImageUrl = prefs.getString(IMAGE_URL_PREFS_KEY, "")
     }
 
     override fun onBind(intent: Intent?): IBinder {
@@ -93,7 +101,6 @@ class BackgroundBeaconService: Service(), BeaconConsumer {
             override fun didRangeBeaconsInRegion(beacons: MutableCollection<Beacon>?, region: Region?) {
                 mBeacons = emptyList()
                 if(beacons == null) return
-                Log.d(TAG, mNoBeaconCount.toString())
                 Log.d(TAG, "BEACONS IN RANGE: ${beacons.size}")
                 for(b: Beacon in beacons){
                     mBeacons = mBeacons.plus(
@@ -103,49 +110,41 @@ class BackgroundBeaconService: Service(), BeaconConsumer {
                                     b.id3.toInt()       //Minor
                             )
                     )
+                    Log.d(TAG, "MINOR: ${b.id3}")
                 }
-                if(beacons.isNotEmpty() && beaconsAreFromPK(mBeacons)) {
-                    mNoBeaconCount = 0
-                } else {
-                    mNoBeaconCount++
+                if(mBeacons.isNotEmpty()) {
+                    var beaconName: String? = BEACON_MAP[getMinorOfClosestBeacon(beacons)]
+                    if(beaconName != null) {
+                        setFirebaseLastSeenAt(beaconName)
+                    }
                 }
-//                setFirebaseInOffice(isInOffice())
             }
 
         })
     }
 
-    private fun hasntSeenBeaconInTooLong(): Boolean = mNoBeaconCount > MAX_NO_BEACON_PINGS
-
-    /**
-     * Holy sh*t this confused me.
-     * Soooo the idea here is for the user's status for in_office to be set to true as soon as they detect a PK beacon
-     * and only be set to false if it hasn't seen a PK beacon in over MAX_NO_BEACON_PINGS scans. This way, if the phone
-     * fails to pick up a beacon a few times in between successful scans for whatever reason, the user will still appear
-     * as in the office.
-     *
-     * The reason I did this was because sometimes I was picking up 0 beacons while in the office. Also I think it's probably
-     * a better approach this way overall.
-     */
-    private fun isInOffice(): Boolean {
-        if(beaconsAreFromPK(mBeacons)){
-            return true
-        } else {
-            return !hasntSeenBeaconInTooLong()
+    private fun getMinorOfClosestBeacon(beacons: MutableCollection<Beacon>): String {
+        var closestBeacon: Beacon? = null
+        for(beacon: Beacon in beacons){
+            if(closestBeacon == null) {
+                closestBeacon = beacon
+            }
+            if(beacon.distance < closestBeacon.distance){
+                closestBeacon = beacon
+            }
         }
+        return closestBeacon?.id3.toString()
     }
 
-    private fun beaconsAreFromPK(beacons: List<SimpleBeacon>) = beacons.filter { BEACONS.contains(it) }.isNotEmpty()
-
-    private fun setFirebaseInOffice(inOffice: Boolean) {
-        if(mEmail == "NO_EMAIL") return//this happens when the application starts this service and no preferences have been saved
-        var usersReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("users")
-        usersReference.child(mEmail).updateChildren(
+    private fun setFirebaseLastSeenAt(lastSeenAt: String) {
+        if(mEmail == "") return//this happens when the application starts this service and no preferences have been saved
+        var usersReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("users/$mId")
+        usersReference.updateChildren(
                 mapOf(
-                        "in_office" to inOffice
+                        "lastSeenAt" to lastSeenAt
                 )
         )
-        Log.d(TAG, "SETTING FIREBASE IN OFFICE: $inOffice")
+        Log.d(TAG, "SETTING FIREBASE LAST SEEN AT: $lastSeenAt")
     }
 
     private class LocalBinder: IBinder {

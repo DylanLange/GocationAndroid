@@ -9,7 +9,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.gocation.gocation_android.R
 import com.gocation.gocation_android.data.User
-import com.mcxiaoke.koi.ext.onClick
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -43,16 +42,18 @@ class UsersListAdapter: ArrayAdapter<User> {
         if (user != null) {
             val profileImage: ImageView? = v?.findViewById(R.id.iv_profile_image) as CircleImageView
             val profileName: TextView? = v.findViewById(R.id.tv_name) as TextView
-            val inviteBtn: ImageView? = v.findViewById(R.id.btn_invite) as ImageView
+            val lastSeenAt: TextView? = v.findViewById(R.id.tv_last_seen_at) as TextView
+//            val inviteBtn: ImageView? = v.findViewById(R.id.btn_invite) as ImageView
 
             Picasso.with(mContext)
                     .load(user.imageUrl)
                     .into(profileImage)
 
             profileName?.text = user.name
-            inviteBtn?.onClick {
-                //TODO: implement this
-            }
+            lastSeenAt?.text = user.lastSeenAt
+//            inviteBtn?.onClick {
+//
+//            }
         }
 
         return v!!

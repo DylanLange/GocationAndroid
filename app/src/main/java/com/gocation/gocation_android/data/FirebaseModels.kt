@@ -9,5 +9,6 @@ data class User(
         val email: String,
         val gender: String,
         val ageRange: String,
-        val imageUrl: String
+        val imageUrl: String,
+        val lastSeenAt: String
 )

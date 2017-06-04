@@ -2,7 +2,8 @@ package com.gocation.gocation_android.login
 
 import android.content.Intent
 import android.content.SharedPreferences
-import android.media.MediaPlayer
+import android.media.MediaPlayer.OnPreparedListener
+import android.net.Uri
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
@@ -18,8 +19,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONException
-import android.net.Uri
-import android.media.MediaPlayer.OnPreparedListener
 
 
 
@@ -124,7 +123,7 @@ class LoginActivity: AppCompatActivity() {
 
     private fun signInToFirebase(id: String, name: String, email: String, gender: String, ageRange: String, imageUrl: String){
         FirebaseDatabase.getInstance().getReference("users").child(id).setValue(
-                User(id, name, email.toFirebaseKey(), gender, ageRange, imageUrl)
+                User(id, name, email.toFirebaseKey(), gender, ageRange, imageUrl, "Unknown")
         )
     }
 

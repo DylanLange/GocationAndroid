@@ -30,9 +30,10 @@
             tools:text="Dylan Lange"/>
 
         <TextView
+            android:id="@+id/tv_last_seen_at"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Last seen at: WIG401"
+            tools:text="Last seen at: WIG401"
             android:textColor="#af546e7a"/>
 
     </LinearLayout>
@@ -42,12 +43,12 @@
         android:layout_height="match_parent"
         android:layout_weight="1"/>
 
-    <ImageView
-        android:id="@+id/btn_invite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginRight="24dp"
-        android:src="@drawable/ic_map"/>
+    <!--<ImageView-->
+        <!--android:id="@+id/btn_invite"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:layout_marginRight="24dp"-->
+        <!--android:src="@drawable/ic_map"/>-->
 
 </LinearLayout>
