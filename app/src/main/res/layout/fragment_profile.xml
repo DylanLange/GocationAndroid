@@ -45,18 +45,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="22dp"
-    android:textColor="@color/accent"
+        android:textColor="@color/accent"
         android:gravity="center_horizontal"
-    android:textSize="18dp"
-    tools:text="langedyla@myvuw.ac.nz"/>
+        android:textSize="18dp"
+        tools:text="langedyla@myvuw.ac.nz"/>
 
-<TextView
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:textColor="@color/accent"
-android:textStyle="bold"
-    android:gravity="center_horizontal"
-android:textSize="18dp"
-android:text="Last seen at: WIG401"/>
+    <TextView
+        android:id="@+id/tv_last_seen_at"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Last seen at: WIG401"
+        android:textColor="@color/accent"
+        android:textSize="18dp"
+        android:textStyle="bold" />
 
-    </LinearLayout>
+</LinearLayout>

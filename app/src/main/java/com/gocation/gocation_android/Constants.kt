@@ -10,6 +10,7 @@ val EMAIL_PREFS_KEY: String = "EMAIL_PREFS_KEY"
 val AGE_RANGE_PREFS_KEY: String = "AGE_RANGE_PREFS_KEY"
 val IMAGE_URL_PREFS_KEY: String = "IMAGE_URL_PREFS_KEY"
 val GENDER_PREFS_KEY: String = "GENDER_PREFS_KEY"
+val LAST_SEEN_AT_PREFS_KEY: String = "LAST_SEEN_AT_PREFS_KEY"
 
 val BEACON_MAP: Map<String, String> = mapOf(
         "3" to "Beacon 3",
