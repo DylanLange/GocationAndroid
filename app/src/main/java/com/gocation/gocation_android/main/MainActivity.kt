@@ -3,6 +3,9 @@ package com.gocation.gocation_android.main
 
 
 import android.Manifest
+import android.app.AlertDialog
+import android.bluetooth.BluetoothAdapter
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -33,6 +36,8 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 
 
+
+
 /**
  * Created by dylanlange on 11/05/17.
  */
@@ -44,12 +49,6 @@ class MainActivity: AppCompatActivity() {
     lateinit private var mEditor: SharedPreferences.Editor
     lateinit private var mDrawer: Drawer
     lateinit var mBeaconServiceIntent: Intent
-
-
-    //popup notf window vars
-
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -124,7 +123,6 @@ class MainActivity: AppCompatActivity() {
 
             }
 
-
             primaryItem("Event Map") {
                 icon = R.drawable.ic_map
                 onClick { _ ->
@@ -133,11 +131,7 @@ class MainActivity: AppCompatActivity() {
                     finish()
                     false
                 }
-
             }
-
-
-
 
             divider {  }
 
@@ -152,13 +146,29 @@ class MainActivity: AppCompatActivity() {
                     finish()
                     false
                 }
-
-
             }
-
-
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+        if (mBluetoothAdapter == null) {
+            showStandardAlertDialog("Bluetooth Required", "To use the features of this app, your device needs to have bluetooth.")
+        } else {
+            if (!mBluetoothAdapter.isEnabled) {
+                showStandardAlertDialog("Bluetooth Required", "To use the features of this app, you need to turn blueooth on.")
+            }
+        }
+    }
+
+    private fun showStandardAlertDialog(title: String, msg: String) {
+        val alertDialog = AlertDialog.Builder(this@MainActivity).create()
+        alertDialog.setTitle(title)
+        alertDialog.setMessage(msg)
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Ok") { dialogInterface: DialogInterface, i: Int -> dialogInterface.dismiss() }
+        alertDialog.show()
     }
 
     private fun requestLocationPermissions() {
