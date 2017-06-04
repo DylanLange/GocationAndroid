@@ -2,9 +2,11 @@ package com.gocation.gocation_android.login
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
+import android.widget.VideoView
 import com.facebook.*
 import com.facebook.login.LoginResult
 import com.gocation.gocation_android.*
@@ -16,6 +18,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONException
+import android.net.Uri
+import android.media.MediaPlayer.OnPreparedListener
 
 
 
@@ -29,9 +33,23 @@ class LoginActivity: AppCompatActivity() {
     lateinit var mCallbackManager: CallbackManager
     lateinit var mAuth: FirebaseAuth
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        //videobackground login screeen
+        //TODO: change background video to something smalller
+        val videoview = findViewById(R.id.loginVid) as VideoView
+        val uri = Uri.parse("android.resource://" + packageName + "/" + R.raw.login_bgvid)
+        videoview.setVideoURI(uri)
+        videoview.start()
+
+        videoview.setOnPreparedListener(OnPreparedListener { mp -> mp.isLooping = true })
+
+
+
+
 
         mAuth = FirebaseAuth.getInstance()
 
@@ -121,4 +139,10 @@ class LoginActivity: AppCompatActivity() {
         mAuth.signInWithCredential(credential)
     }
 
+
+
+
+
+
 }
+

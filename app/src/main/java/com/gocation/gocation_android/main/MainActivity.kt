@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import co.zsmb.materialdrawerkt.builders.accountHeader
 import co.zsmb.materialdrawerkt.builders.drawer
 import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
+import co.zsmb.materialdrawerkt.draweritems.badgeable.secondaryItem
 import co.zsmb.materialdrawerkt.draweritems.profile.profile
 import com.facebook.login.LoginManager
 import com.gocation.gocation_android.*
@@ -23,9 +24,26 @@ import com.gocation.gocation_android.background.BackgroundBeaconService
 import com.gocation.gocation_android.login.LoginActivity
 import com.gocation.gocation_android.main.listfragment.ListFragment
 import com.gocation.gocation_android.main.profilefragment.ProfileFragment
+import com.mcxiaoke.koi.ext.onClick
 import com.mikepenz.materialdrawer.Drawer
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
+
+
+
+import android.widget.Button;
+import android.view.View;
+import android.widget.TextView
+import android.widget.LinearLayout
+import android.widget.PopupWindow
+
+
+import android.app.Activity;
+import android.view.Gravity;
+
+import android.view.ViewGroup.LayoutParams;
+import co.zsmb.materialdrawerkt.draweritems.divider
+
 
 /**
  * Created by dylanlange on 11/05/17.
@@ -39,9 +57,30 @@ class MainActivity: AppCompatActivity() {
     lateinit private var mDrawer: Drawer
     lateinit var mBeaconServiceIntent: Intent
 
+
+    //popup notf window vars
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
+
+
+    //notifcation popup window
+
+        btn_notif.onClick {
+            var i: Intent = Intent(this@MainActivity, messageHome::class.java)
+            startActivity(i)
+
+        }
+
+
+
+        //TODO: Add custom font (Raleway)
 
         viewpager.adapter = ViewPagerAdapter(supportFragmentManager)
         mBeaconServiceIntent = Intent(this@MainActivity, BackgroundBeaconService::class.java)
@@ -56,17 +95,91 @@ class MainActivity: AppCompatActivity() {
         var email: String = mSharedPreferences.getString(EMAIL_PREFS_KEY, "")
         var imageUrl: String = mSharedPreferences.getString(IMAGE_URL_PREFS_KEY, "")
 
+
         Picasso.with(this)
                 .load(imageUrl)
                 .into(iv_action_bar_image)
 
         mDrawer = drawer {
             accountHeader {
-                background = R.color.material_blue_grey_900
+                background = R.drawable.login_bg
                 profile(name, email) {
                     iconUrl = imageUrl
                 }
             }
+
+
+
+            //TODO: Fix these links to activities
+
+
+            primaryItem("Friends") {
+                icon = R.drawable.ic_profile
+                onClick { _ ->
+                    var intent: Intent = Intent(this@MainActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    false
+                }
+
+            }
+
+            divider {  }
+
+            primaryItem("Messages") {
+                icon = R.drawable.ic_message
+                onClick { _ ->
+                    var intent: Intent = Intent(this@MainActivity, messageHome::class.java)
+                    startActivity(intent)
+                    finish()
+                    false
+                }
+
+            }
+
+
+
+            primaryItem("Notifications") {
+                icon = R.drawable.ic_notifications
+                onClick { _ ->
+                    var intent: Intent = Intent(this@MainActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    false
+                }
+
+            }
+
+            divider {  }
+
+            primaryItem("Event Info") {
+                icon = R.drawable.ic_info
+                onClick { _ ->
+                    var intent: Intent = Intent(this@MainActivity, eventInfo::class.java)
+                    startActivity(intent)
+                    finish()
+                    false
+                }
+
+            }
+
+
+            primaryItem("Event Map") {
+                icon = R.drawable.ic_map
+                onClick { _ ->
+                    var intent: Intent = Intent(this@MainActivity, mapView::class.java)
+                    startActivity(intent)
+                    finish()
+                    false
+                }
+
+            }
+
+
+
+
+            divider {  }
+
             primaryItem("Log out") {
                 icon = R.drawable.ic_logout
                 onClick { _ ->
@@ -78,7 +191,11 @@ class MainActivity: AppCompatActivity() {
                     finish()
                     false
                 }
+
+
             }
+
+
         }
 
     }
@@ -109,8 +226,9 @@ class MainActivity: AppCompatActivity() {
         btn_alternate.setOnClickListener { alternateBtnClicked() }
     }
 
+
     private fun menuBtnClicked() {
-        if(!mDrawer.isDrawerOpen)
+        if (!mDrawer.isDrawerOpen)
             mDrawer.openDrawer()
         else
             mDrawer.closeDrawer()
@@ -120,14 +238,14 @@ class MainActivity: AppCompatActivity() {
         viewpager.setCurrentItem(1, true)
     }
 
-    class ViewPagerAdapter(fm : FragmentManager) : FragmentStatePagerAdapter(fm) {
+    class ViewPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
-        val NUM_PAGES : Int = 2
+        val NUM_PAGES: Int = 2
         lateinit var mListFragment: ListFragment
         lateinit var mProfileFragment: ProfileFragment
 
         override fun instantiateItem(container: ViewGroup?, position: Int): Any {
-            when(position){
+            when (position) {
                 0 -> {
                     mListFragment = super.instantiateItem(container, position) as ListFragment
                     return mListFragment
@@ -161,3 +279,4 @@ class MainActivity: AppCompatActivity() {
     }
 
 }
+

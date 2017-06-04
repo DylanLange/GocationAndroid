@@ -36,14 +36,29 @@
                 android:layout_centerInParent="true"
                 tools:src="@drawable/ic_profile"/>
 
+
+
+
             <ImageView
                 android:id="@+id/btn_alternate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_alignParentRight="true"
-                android:padding="15dp"
+                android:padding="13dp"
                 android:src="@drawable/ic_profile"/>
+
+            <ImageButton
+                android:layout_width="22dp"
+                android:layout_height="25dp"
+                android:layout_gravity="right"
+                android:background="@drawable/ic_notifications"
+                android:label="@string/app_name"
+                android:padding="25dp"
+                android:layout_marginRight="15dp"
+                android:id="@+id/btn_notif">
+            </ImageButton>
+
 
         </android.support.v7.widget.Toolbar>
 

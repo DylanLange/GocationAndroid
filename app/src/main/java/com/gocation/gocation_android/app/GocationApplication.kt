@@ -9,6 +9,13 @@ import org.altbeacon.beacon.BeaconParser
 import org.altbeacon.beacon.Region
 import org.altbeacon.beacon.startup.BootstrapNotifier
 import org.altbeacon.beacon.startup.RegionBootstrap
+import android.graphics.Typeface
+import android.widget.EditText
+
+import android.widget.TextView
+import com.gocation.gocation_android.R
+import com.vstechlab.easyfonts.EasyFonts
+
 
 /**
  * Created by dylanlange on 11/05/17.
@@ -36,6 +43,13 @@ class GocationApplication:
         // wake up the app when any beacon is seen (you can specify specific id filers in the parameters below)
         val region = Region("myMonitoringUniqueId", null, null, null)
         mRegionBootstrap = RegionBootstrap(this, region)
+
+
+//        //CUSTOM FONTS CHEAHOO
+//        val myTextView = (R.id.tv_name) as TextView
+//        myTextView.typeface = EasyFonts.robotoThin(this)
+
+
     }
 
     override fun didDetermineStateForRegion(p0: Int, p1: Region?) {
@@ -53,4 +67,13 @@ class GocationApplication:
     override fun didExitRegion(p0: Region?) {
 
     }
+
+
+
+    //Custom Fonts CHEEAHOO
+
+
+
+
+
 }
