@@ -14,42 +14,20 @@
         android:elevation="4dp">
 
         <ImageView
-            android:id="@+id/btn_menu"
+            android:id="@+id/btn_back"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:padding="15dp"
             android:scaleType="centerInside"
             android:adjustViewBounds="true"
-            android:src="@drawable/ic_menu"/>
+            android:src="@drawable/back_btn"/>
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_action_bar_image"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:layout_gravity="center"
-            android:layout_centerInParent="true"
-            tools:src="@drawable/ic_profile"/>
-
-        <ImageView
-            android:id="@+id/btn_alternate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_alignParentRight="true"
-            android:padding="13dp"
-            android:src="@drawable/ic_profile"/>
-
-        <ImageButton
-            android:layout_width="22dp"
-            android:layout_height="25dp"
-            android:layout_gravity="right"
-            android:background="@drawable/ic_notifications"
-            android:label="@string/app_name"
-            android:padding="25dp"
-            android:layout_marginRight="15dp"
-            android:id="@+id/btn_notif">
-        </ImageButton>
+            android:textSize="18sp"
+            android:text="Group Chat"
+            android:textColor="@color/accent"/>
 
 
     </android.support.v7.widget.Toolbar>
@@ -76,10 +54,11 @@
 
         <Button
             android:id="@+id/btn_send"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginLeft="24dp"
             android:textAllCaps="false"
-            android:text="Send"/>
+            android:background="@drawable/send_btn"/>
 
     </LinearLayout>
 

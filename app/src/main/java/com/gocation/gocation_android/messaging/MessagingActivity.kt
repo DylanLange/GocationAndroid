@@ -1,6 +1,7 @@
 package com.gocation.gocation_android.messaging
 
 import android.content.SharedPreferences
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
@@ -32,6 +33,9 @@ class MessagingActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_messaging)
+
+        et_message.background.setColorFilter(resources.getColor(R.color.accent), PorterDuff.Mode.SRC_IN)
+        btn_back.onClick { finish() }
 
         var prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
 
