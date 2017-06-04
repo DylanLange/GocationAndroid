@@ -21,7 +21,7 @@ import android.widget.Button;
  * Created by Billy on 1/06/17.
  */
 
-public class mapView extends AppCompatActivity {
+public class MapView extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

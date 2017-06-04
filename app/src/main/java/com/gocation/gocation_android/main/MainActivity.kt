@@ -1,5 +1,7 @@
 package com.gocation.gocation_android.main
 
+
+
 import android.Manifest
 import android.content.Intent
 import android.content.SharedPreferences
@@ -16,7 +18,7 @@ import android.view.ViewGroup
 import co.zsmb.materialdrawerkt.builders.accountHeader
 import co.zsmb.materialdrawerkt.builders.drawer
 import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
-import co.zsmb.materialdrawerkt.draweritems.badgeable.secondaryItem
+import co.zsmb.materialdrawerkt.draweritems.divider
 import co.zsmb.materialdrawerkt.draweritems.profile.profile
 import com.facebook.login.LoginManager
 import com.gocation.gocation_android.*
@@ -24,25 +26,11 @@ import com.gocation.gocation_android.background.BackgroundBeaconService
 import com.gocation.gocation_android.login.LoginActivity
 import com.gocation.gocation_android.main.listfragment.ListFragment
 import com.gocation.gocation_android.main.profilefragment.ProfileFragment
+import com.gocation.gocation_android.messaging.MessagingActivity
 import com.mcxiaoke.koi.ext.onClick
 import com.mikepenz.materialdrawer.Drawer
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
-
-
-
-import android.widget.Button;
-import android.view.View;
-import android.widget.TextView
-import android.widget.LinearLayout
-import android.widget.PopupWindow
-
-
-import android.app.Activity;
-import android.view.Gravity;
-
-import android.view.ViewGroup.LayoutParams;
-import co.zsmb.materialdrawerkt.draweritems.divider
 
 
 /**
@@ -73,9 +61,8 @@ class MainActivity: AppCompatActivity() {
     //notifcation popup window
 
         btn_notif.onClick {
-            var i: Intent = Intent(this@MainActivity, messageHome::class.java)
+            var i: Intent = Intent(this@MainActivity, MessagingActivity::class.java)
             startActivity(i)
-
         }
 
 
@@ -102,17 +89,14 @@ class MainActivity: AppCompatActivity() {
 
         mDrawer = drawer {
             accountHeader {
+                selectionListEnabledForSingleProfile = false
                 background = R.drawable.login_bg
                 profile(name, email) {
                     iconUrl = imageUrl
                 }
             }
 
-
-
             //TODO: Fix these links to activities
-
-
             primaryItem("Friends") {
                 icon = R.drawable.ic_profile
                 onClick { _ ->
@@ -126,18 +110,16 @@ class MainActivity: AppCompatActivity() {
 
             divider {  }
 
-            primaryItem("Messages") {
-                icon = R.drawable.ic_message
-                onClick { _ ->
-                    var intent: Intent = Intent(this@MainActivity, messageHome::class.java)
-                    startActivity(intent)
-                    finish()
-                    false
-                }
-
-            }
-
-
+//            primaryItem("Messages") {
+//                icon = R.drawable.ic_message
+//                onClick { _ ->
+//                    var intent: Intent = Intent(this@MainActivity, MessageHome::class.java)
+//                    startActivity(intent)
+//                    finish()
+//                    false
+//                }
+//
+//            }
 
             primaryItem("Notifications") {
                 icon = R.drawable.ic_notifications
@@ -155,7 +137,7 @@ class MainActivity: AppCompatActivity() {
             primaryItem("Event Info") {
                 icon = R.drawable.ic_info
                 onClick { _ ->
-                    var intent: Intent = Intent(this@MainActivity, eventInfo::class.java)
+                    var intent: Intent = Intent(this@MainActivity, EventInfo::class.java)
                     startActivity(intent)
                     finish()
                     false
@@ -167,7 +149,7 @@ class MainActivity: AppCompatActivity() {
             primaryItem("Event Map") {
                 icon = R.drawable.ic_map
                 onClick { _ ->
-                    var intent: Intent = Intent(this@MainActivity, mapView::class.java)
+                    var intent: Intent = Intent(this@MainActivity, MapView::class.java)
                     startActivity(intent)
                     finish()
                     false
