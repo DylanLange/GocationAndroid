@@ -43,13 +43,13 @@
                 android:layout_gravity="right"
                 android:layout_alignParentRight="true"
                 android:padding="13dp"
-                android:src="@drawable/ic_profile"/>
+                android:src="@drawable/ic_profile_blue_bg"/>
 
             <ImageButton
-                android:layout_width="22dp"
-                android:layout_height="25dp"
+                android:layout_width="28dp"
+                android:layout_height="24dp"
                 android:layout_gravity="right"
-                android:background="@drawable/ic_notifications"
+                android:background="@drawable/ic_message"
                 android:label="@string/app_name"
                 android:padding="25dp"
                 android:layout_marginRight="15dp"

@@ -55,17 +55,12 @@ class MainActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
-
-    //notifcation popup window
+        //notifcation popup window
 
         btn_notif.onClick {
             var i: Intent = Intent(this@MainActivity, MessagingActivity::class.java)
             startActivity(i)
         }
-
-
 
         //TODO: Add custom font (Raleway)
 
@@ -110,16 +105,15 @@ class MainActivity: AppCompatActivity() {
 
             divider {  }
 
-//            primaryItem("Messages") {
-//                icon = R.drawable.ic_message
-//                onClick { _ ->
-//                    var intent: Intent = Intent(this@MainActivity, MessageHome::class.java)
-//                    startActivity(intent)
-//                    finish()
-//                    false
-//                }
-//
-//            }
+            primaryItem("Messages") {
+                icon = R.drawable.ic_message
+                onClick { _ ->
+                    var intent: Intent = Intent(this@MainActivity, MessagingActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    false
+                }
+            }
 
             primaryItem("Notifications") {
                 icon = R.drawable.ic_notifications
