@@ -3,7 +3,6 @@ package com.gocation.gocation_android.main.profilefragment
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,6 +44,7 @@ class ProfileFragment: android.support.v4.app.Fragment() {
             override fun onCancelled(databaseError: DatabaseError?) { }
 
             override fun onDataChange(dataSnapshot: DataSnapshot?) {
+                if(context == null) return
                 var users = getAllUsersFromSnapshot(dataSnapshot)
                 var prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
                 var listOfPotentiallyMeUsers: List<User> = users.filter { it.email == prefs.getString(EMAIL_PREFS_KEY, "").toFirebaseKey() }
