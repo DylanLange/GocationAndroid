@@ -1,20 +1,30 @@
 package com.gocation.gocation_android.app
 
 import android.app.Application
+import android.app.Notification
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
+import android.support.v7.app.NotificationCompat
 import com.facebook.FacebookSdk
+import com.gocation.gocation_android.ID_PREFS_KEY
+import com.gocation.gocation_android.R
 import com.gocation.gocation_android.background.BackgroundBeaconService
+import com.gocation.gocation_android.data.User
+import com.gocation.gocation_android.data.extractSingleUser
+import com.gocation.gocation_android.main.MainActivity
+import com.google.firebase.database.ChildEventListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import org.altbeacon.beacon.BeaconManager
 import org.altbeacon.beacon.BeaconParser
 import org.altbeacon.beacon.Region
 import org.altbeacon.beacon.startup.BootstrapNotifier
 import org.altbeacon.beacon.startup.RegionBootstrap
-import android.graphics.Typeface
-import android.widget.EditText
-
-import android.widget.TextView
-import com.gocation.gocation_android.R
-import com.vstechlab.easyfonts.EasyFonts
 
 
 /**
@@ -48,8 +58,42 @@ class GocationApplication:
 //        //CUSTOM FONTS CHEAHOO
 //        val myTextView = (R.id.tv_name) as TextView
 //        myTextView.typeface = EasyFonts.robotoThin(this)
+        FirebaseDatabase.getInstance().reference.child("users").addChildEventListener(object: ChildEventListener{
+            override fun onChildMoved(snapshot: DataSnapshot?, p1: String?) { }
 
+            override fun onChildAdded(snapshot: DataSnapshot?, p1: String?) { }
 
+            override fun onChildRemoved(snapshot: DataSnapshot?) { }
+
+            override fun onCancelled(error: DatabaseError?) { }
+
+            override fun onChildChanged(snapshot: DataSnapshot?, p1: String?) {
+                var user: User = extractSingleUser(snapshot?.value as Map<*,*>)
+                sendNotification(user)
+            }
+        })
+
+    }
+
+    private fun sendNotification(user: User) {
+        var prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        if(user.id == prefs.getString(ID_PREFS_KEY, "")) return//if the change is your own user, don't notify
+        val intent = Intent(this, MainActivity::class.java)
+        val contentIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
+
+        val b = NotificationCompat.Builder(this)
+
+        b.setAutoCancel(true)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.drawable.ic_logo_g)
+                .setContentTitle(user.name)
+                .setContentText("Seen at: ${user.lastSeenAt}")
+                .setContentIntent(contentIntent)
+                .setContentInfo("Info")
+
+        var notifManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notifManager.notify(user.id.hashCode(), b.build())
     }
 
     override fun didDetermineStateForRegion(p0: Int, p1: Region?) {

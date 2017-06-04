@@ -1,7 +1,6 @@
 package com.gocation.gocation_android.main.listfragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +37,9 @@ class ListFragment: android.support.v4.app.Fragment() {
 
             override fun onDataChange(dataSnapshot: DataSnapshot?) {
                 mUsers = getAllUsersFromSnapshot(dataSnapshot)
-                listview.adapter = UsersListAdapter(activity, R.layout.list_item_user, mUsers.toMutableList())
+                if(activity != null) {
+                    listview.adapter = UsersListAdapter(activity, R.layout.list_item_user, mUsers.toMutableList())
+                }
             }
 
         })
