@@ -9,7 +9,7 @@ import com.gocation.gocation_android.R;
  * Created by Billy on 31/05/17.
  */
 
-public class eventMap extends AppCompatActivity {
+public class EventMap extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

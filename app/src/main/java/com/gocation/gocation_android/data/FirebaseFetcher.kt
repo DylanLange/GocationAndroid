@@ -1,5 +1,6 @@
 package com.gocation.gocation_android.data
 
+import com.gocation.gocation_android.messaging.ChatMessage
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.FirebaseDatabase
@@ -17,7 +18,11 @@ fun listenForChangeToUsers(listener: ChildEventListener) {
     FirebaseDatabase.getInstance().reference.child("users").addChildEventListener(listener)
 }
 
-fun getAllUsersFromSnapshot(dataSnapshot: DataSnapshot?): List<User> = extractUsersFromRawMap(dataSnapshot!!.value as Map<String, Any>)
+fun listenForChangeToMessages(listener: ValueEventListener) {
+    FirebaseDatabase.getInstance().reference.child("messages").addValueEventListener(listener)
+}
+
+fun getAllUsersFromSnapshot(dataSnapshot: DataSnapshot?): List<User> = extractUsersFromRawMap(dataSnapshot?.value as Map<String, Any>)
 
 fun getUserFromSnapshot(dataSnapshot: DataSnapshot?): User = extractSingleUser(dataSnapshot!!.value as Map<*, *>)
 
@@ -37,4 +42,23 @@ fun extractSingleUser(rawUser: Map<*, *>): User= User(
         rawUser["gender"] as String,
         rawUser["ageRange"] as String,
         rawUser["imageUrl"] as String
+)
+
+fun getAllMessagesFromSnapshot(dataSnapshot: DataSnapshot?): List<ChatMessage> = extractMessagesFromRawMap(dataSnapshot?.value as Map<String, Any>?)
+
+fun extractMessagesFromRawMap(map: Map<String, Any>?): List<ChatMessage> {
+    var messages: List<ChatMessage> = emptyList()
+    if(map == null) return emptyList()
+    for((_, value) in map) {
+        val singleMessage = value as Map<*, *>
+        messages = messages.plus(extractSingleMessage(singleMessage))
+    }
+    return messages
+}
+
+fun extractSingleMessage(rawMessage: Map<*, *>): ChatMessage = ChatMessage(
+        rawMessage["sender"] as String,
+        rawMessage["imageUrl"] as String,
+        rawMessage["timeStamp"] as String,
+        rawMessage["body"] as String
 )

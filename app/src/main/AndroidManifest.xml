@@ -21,10 +21,7 @@
             android:name=".main.MainActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
-            android:name=".main.chatMessage"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity
-            android:name=".main.messageHome"
+            android:name=".messaging.MessagingActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
         <activity
