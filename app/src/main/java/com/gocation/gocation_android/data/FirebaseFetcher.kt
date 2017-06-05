@@ -42,8 +42,7 @@ fun extractSingleUser(rawUser: Map<*, *>): User= User(
         rawUser["gender"] as String,
         rawUser["ageRange"] as String,
         rawUser["imageUrl"] as String,
-        rawUser["lastSeenAt"] as String,
-        NotificationHistory(rawUser["notificationHistory"] as Map<String, String>? ?: emptyMap())
+        rawUser["lastSeenAt"] as String
 )
 
 fun getAllMessagesFromSnapshot(dataSnapshot: DataSnapshot?): List<ChatMessage> = extractMessagesFromRawMap(dataSnapshot?.value as Map<String, Any>?)

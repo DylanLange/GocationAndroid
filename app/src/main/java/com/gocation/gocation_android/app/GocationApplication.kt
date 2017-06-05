@@ -116,7 +116,6 @@ class GocationApplication:
         var notifManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notifManager.notify(user.id.hashCode(), b.build())
 
-        updateNotifHistory(notifTitle, notifBody)
     }
 
     private fun sendNotification(msg: ChatMessage) {
@@ -141,17 +140,6 @@ class GocationApplication:
         var notifManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notifManager.notify(msg.sender.hashCode(), b.build())
 
-        updateNotifHistory(notifTitle, notifBody)
-    }
-
-    private fun updateNotifHistory(notifTitle: String, notifBody: String) {
-        var prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        var id: String = prefs.getString(ID_PREFS_KEY, "")
-        FirebaseDatabase.getInstance().reference.child("users/$id/notificationHistory").updateChildren(
-                mapOf(
-                        notifTitle to notifBody
-                )
-        )
     }
 
     override fun didDetermineStateForRegion(p0: Int, p1: Region?) {

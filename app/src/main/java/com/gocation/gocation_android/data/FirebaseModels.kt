@@ -10,10 +10,5 @@ data class User(
         val gender: String,
         val ageRange: String,
         val imageUrl: String,
-        val lastSeenAt: String,
-        val notificationHistory: NotificationHistory?
-)
-
-data class NotificationHistory(
-        val notifications: Map<String, String>
+        val lastSeenAt: String
 )

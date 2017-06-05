@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.firststarcommunications.ampmscratchpower.android.adapters.UsersListAdapter
 import com.gocation.gocation_android.R
-import com.gocation.gocation_android.data.*
-import com.google.firebase.database.ChildEventListener
+import com.gocation.gocation_android.data.User
+import com.gocation.gocation_android.data.getAllUsersFromSnapshot
+import com.gocation.gocation_android.data.listenForAllUsers
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -44,28 +45,7 @@ class ListFragment: android.support.v4.app.Fragment() {
 
         })
 
-        listenForChangeToUsers(object: ChildEventListener {
 
-            override fun onCancelled(databaseError: DatabaseError?) { }
-
-            override fun onChildMoved(dataSnapshot: DataSnapshot?, previousChildName: String?) { }
-
-            override fun onChildChanged(dataSnapshot: DataSnapshot?, previousChildName: String?) {
-                var changedUser: User = getUserFromSnapshot(dataSnapshot)
-                //handle updating view here
-            }
-
-            override fun onChildAdded(dataSnapshot: DataSnapshot?, previousChildName: String?) {
-                var addedUser: User = getUserFromSnapshot(dataSnapshot)
-                //handle updating view here
-            }
-
-            override fun onChildRemoved(dataSnapshot: DataSnapshot?) {
-                var removedUser: User = getUserFromSnapshot(dataSnapshot)
-                //handle updating view here
-            }
-
-        })
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? = inflater?.inflate(R.layout.fragment_list, container, false)
