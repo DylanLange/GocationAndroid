@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:text="Group Chat"
-            android:textColor="@color/accent"/>
+            android:textColor="#ffffff"/>
 
 
     </android.support.v7.widget.Toolbar>

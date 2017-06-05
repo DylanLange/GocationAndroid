@@ -48,6 +48,7 @@ dependencies {
     compile 'com.google.firebase:firebase-database:9.6.0'
     compile 'com.vstechlab.easyfonts:easyfonts:1.0.0'
 
+
 }
 
 
