@@ -87,7 +87,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center"
-        android:text="Swipe to alert"
+        android:text="Swipe to SOS"
         android:textSize="24sp"
         android:textColor="@color/md_white_1000"
         android:background="@color/accent"
