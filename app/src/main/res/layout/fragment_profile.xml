@@ -8,11 +8,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/profile_bg"
     android:padding="20dp"
-    android:weightSum="1"
-    >
-
-
-
+    android:weightSum="1">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_profile_image"
@@ -28,7 +24,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:padding="3dp"
-        android:textColor="@color/accent"
+        android:textColor="@color/textCol"
         android:textSize="25dp"
         android:textStyle="bold"
         tools:text="Dylan Lange" />
@@ -41,7 +37,7 @@
         android:gravity="center_horizontal"
         android:textColor="#08003e"
         android:textSize="14dp"
-        tools:text="Wellington, New Zealand" />
+        android:text="Wellington, New Zealand" />
 
 
     <TextView
@@ -49,26 +45,27 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:gravity="center_horizontal"
-        android:textColor="#08003e"
-        android:textSize="10dp"
-        tools:text="Email Address:" />
+        android:textColor="@color/textCol"
+        android:textSize="14dp"
+        android:text="Email Address:" />
     <TextView
         android:id="@+id/tv_profile_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="22dp"
-        android:textColor="@color/accent"
+        android:textColor="@color/textCol"
         android:gravity="center_horizontal"
-        android:textSize="18dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
         tools:text="langedyla@myvuw.ac.nz"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:gravity="center_horizontal"
-        android:textColor="#08003e"
-        android:textSize="10dp"
-        tools:text="Last Known Location:" />
+        android:textColor="@color/textCol"
+        android:textSize="14dp"
+        android:text="Last Known Location:" />
 
     <TextView
         android:id="@+id/tv_last_seen_at"
@@ -76,7 +73,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="Last seen at: WIG401"
-        android:textColor="@color/accent"
+        android:textColor="@color/textCol"
         android:textSize="18dp"
         android:textStyle="bold" />
 
@@ -93,13 +90,13 @@
         android:text="Swipe to alert"
         android:textSize="24sp"
         android:textColor="@color/md_white_1000"
-        android:background="@color/primary"
-        app:button_confirm_text="Release to send alert"
-        app:button_post_confirm_text="Alert sent"
-        app:after_confirmation_background="@color/colorPrimary"
-        app:button_swipe_text="Swipe to alert"
-        app:gradient_color_1="@color/accent"
-        app:gradient_color_2="@color/primary"
+        android:background="@color/accent"
+        app:button_confirm_text="Release to SOS"
+        app:button_post_confirm_text="SOS sent"
+        app:after_confirmation_background="@color/accent"
+        app:button_swipe_text="Swipe to SOS"
+        app:gradient_color_1="@color/colorPrimaryDark"
+        app:gradient_color_2="@color/accent"
         app:threshold="0.95"/>
 
     <View

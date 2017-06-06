@@ -16,7 +16,10 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.PermissionChecker
+import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import co.zsmb.materialdrawerkt.builders.accountHeader
 import co.zsmb.materialdrawerkt.builders.drawer
@@ -80,6 +83,16 @@ class MainActivity: AppCompatActivity() {
         Picasso.with(this)
                 .load(imageUrl)
                 .into(iv_action_bar_image)
+
+        viewpager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) { }
+
+            override fun onPageSelected(position: Int) { }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                iv_action_bar_image.visibility = if(position == 0) VISIBLE else GONE
+            }
+        })
 
         mDrawer = drawer {
             accountHeader {
