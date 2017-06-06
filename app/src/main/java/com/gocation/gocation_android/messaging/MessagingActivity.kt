@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import com.gocation.gocation_android.IMAGE_URL_PREFS_KEY
 import com.gocation.gocation_android.NAME_PREFS_KEY
 import com.gocation.gocation_android.R
+import com.gocation.gocation_android.asMonth
 import com.gocation.gocation_android.data.getAllMessagesFromSnapshot
 import com.gocation.gocation_android.data.listenForChangeToMessages
 import com.google.firebase.database.DataSnapshot
@@ -16,7 +17,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.mcxiaoke.koi.ext.onClick
 import kotlinx.android.synthetic.main.activity_messaging.*
-import java.text.DateFormatSymbols
 import java.util.*
 
 /**
@@ -78,7 +78,6 @@ class MessagingActivity: AppCompatActivity() {
         return "$day $month, $hour:$min:$sec"
     }
 
-    fun Int.asMonth(): String = if(this in 0..11) DateFormatSymbols().months[this] else ""
     fun List<ChatMessage>.orderedByTime(): List<ChatMessage> {
         var listCopy: MutableList<ChatMessage> = this.toMutableList()
 
