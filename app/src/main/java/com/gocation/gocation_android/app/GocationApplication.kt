@@ -12,6 +12,7 @@ import android.support.v7.app.NotificationCompat
 import com.facebook.FacebookSdk
 import com.gocation.gocation_android.ID_PREFS_KEY
 import com.gocation.gocation_android.IMAGE_URL_PREFS_KEY
+import com.gocation.gocation_android.LAST_SEEN_AT_PREFS_KEY
 import com.gocation.gocation_android.R
 import com.gocation.gocation_android.background.BackgroundBeaconService
 import com.gocation.gocation_android.data.User
@@ -41,10 +42,15 @@ class GocationApplication:
 
     lateinit private var mBeaconManager: BeaconManager
     lateinit private var mRegionBootstrap: RegionBootstrap
+    lateinit private var prefs: SharedPreferences
+    lateinit private var editor: SharedPreferences.Editor
 
     override fun onCreate() {
         super.onCreate()
         FacebookSdk.sdkInitialize(this)
+
+        prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        editor = prefs.edit()
 
         // To detect proprietary beacons, you must add a line like below corresponding to your beacon
         // type.  Do a web search for "setBeaconLayout" to get the proper expression.
@@ -95,7 +101,6 @@ class GocationApplication:
     }
 
     private fun sendNotification(user: User) {
-        var prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         if(user.id == prefs.getString(ID_PREFS_KEY, "")) return//if the change is your own user, don't notify
         val intent = Intent(this, MainActivity::class.java)
         val contentIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
@@ -103,6 +108,8 @@ class GocationApplication:
         val b = NotificationCompat.Builder(this)
         val notifTitle: String = "Activity: ${user.name}"
         val notifBody: String = "Seen at: ${user.lastSeenAt}"
+        editor.putString(LAST_SEEN_AT_PREFS_KEY, user.lastSeenAt)
+        editor.apply()
 
         b.setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_ALL)
