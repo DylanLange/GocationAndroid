@@ -6,40 +6,52 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
-    android:padding="20dp">
+    android:background="@drawable/profile_bg"
+    android:padding="20dp"
+    android:weightSum="1"
+    >
+
+
+
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_profile_image"
         android:layout_width="116dp"
         android:layout_height="120dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="30dp"/>
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="20dp" />
 
     <TextView
         android:id="@+id/tv_profile_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="3dp"
         android:gravity="center_horizontal"
+        android:padding="3dp"
         android:textColor="@color/accent"
-        android:textStyle="bold"
         android:textSize="25dp"
-        tools:text="Dylan Lange"/>
+        android:textStyle="bold"
+        tools:text="Dylan Lange" />
 
 
     <TextView
-        android:id="@+id/location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="80dp"
         android:gravity="center_horizontal"
-        android:textColor="@color/accent"
+        android:textColor="#08003e"
         android:textSize="14dp"
-        tools:text="Wellington, New Zealand"/>
+        tools:text="Wellington, New Zealand" />
 
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_horizontal"
+        android:textColor="#08003e"
+        android:textSize="10dp"
+        tools:text="Email Address:" />
     <TextView
         android:id="@+id/tv_profile_email"
         android:layout_width="match_parent"
@@ -49,6 +61,14 @@
         android:gravity="center_horizontal"
         android:textSize="18dp"
         tools:text="langedyla@myvuw.ac.nz"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_horizontal"
+        android:textColor="#08003e"
+        android:textSize="10dp"
+        tools:text="Last Known Location:" />
 
     <TextView
         android:id="@+id/tv_last_seen_at"

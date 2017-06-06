@@ -9,6 +9,7 @@
     <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
     <uses-permission android:name="android.permission.INTERNET"/>
 
+
     <application
         android:allowBackup="true"
         android:name=".app.GocationApplication"
@@ -20,6 +21,11 @@
         <activity
             android:name=".main.MainActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
+
+        <activity
+            android:name=".main.EventMap"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+
         <activity
             android:name=".messaging.MessagingActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
@@ -59,6 +65,16 @@
             android:value="@string/facebook_app_id"/>
 
         <service android:enabled="true" android:name=".background.BackgroundBeaconService" />
+
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyA9WOccXbuTtKJkm4qMY4hFBBNWuFV_rC8"/>
+
 
     </application>
 

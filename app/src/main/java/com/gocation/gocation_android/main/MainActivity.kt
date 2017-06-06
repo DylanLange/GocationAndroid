@@ -84,14 +84,25 @@ class MainActivity: AppCompatActivity() {
         mDrawer = drawer {
             accountHeader {
                 selectionListEnabledForSingleProfile = false
-                background = R.drawable.login_bg
+                background = R.drawable.menu_bg
                 profile(name, email) {
                     iconUrl = imageUrl
                 }
             }
 
+            primaryItem("Friends") {
+                icon = R.drawable.ic_profile
+                onClick { _ ->
+                    var intent: Intent = Intent(this@MainActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    false
+
+                }
+            }
+
+
             primaryItem("Messages") {
-                icon = R.drawable.ic_message
+                icon = R.drawable.ic_message_men
                 onClick { _ ->
                     var intent: Intent = Intent(this@MainActivity, MessagingActivity::class.java)
                     startActivity(intent)
@@ -126,9 +137,8 @@ class MainActivity: AppCompatActivity() {
             primaryItem("Event Map") {
                 icon = R.drawable.ic_map
                 onClick { _ ->
-                    var intent: Intent = Intent(this@MainActivity, MapView::class.java)
+                    var intent: Intent = Intent(this@MainActivity, EventMap::class.java)
                     startActivity(intent)
-                    finish()
                     false
                 }
             }
