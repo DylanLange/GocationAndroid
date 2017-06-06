@@ -139,9 +139,9 @@ class MainActivity: AppCompatActivity() {
             primaryItem("Event Info") {
                 icon = R.drawable.ic_info
                 onClick { _ ->
-                    var intent: Intent = Intent(this@MainActivity, EventInfo::class.java)
-                    startActivity(intent)
-                    finish()
+//                    var intent: Intent = Intent(this@MainActivity, EventInfo::class.java)
+//                    startActivity(intent)
+//                    finish()
                     false
                 }
 
@@ -150,8 +150,8 @@ class MainActivity: AppCompatActivity() {
             primaryItem("Event Map") {
                 icon = R.drawable.ic_map
                 onClick { _ ->
-                    var intent: Intent = Intent(this@MainActivity, EventMap::class.java)
-                    startActivity(intent)
+//                    var intent: Intent = Intent(this@MainActivity, EventMap::class.java)
+//                    startActivity(intent)
                     false
                 }
             }
