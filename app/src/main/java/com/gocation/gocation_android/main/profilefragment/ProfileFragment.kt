@@ -85,7 +85,7 @@ class ProfileFragment: android.support.v4.app.Fragment() {
                                 name,
                                 imageUrl,
                                 getCurrentTime(),
-                                "SOS - $name"
+                                "SOS - $name \nLAST SEEN AT - ${if(lastSeenAt == "") "UNKNOWN" else lastSeenAt}"
                         )
                 )
             }
