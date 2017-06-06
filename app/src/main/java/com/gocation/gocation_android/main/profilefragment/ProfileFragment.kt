@@ -4,17 +4,22 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import com.gocation.gocation_android.*
 import com.gocation.gocation_android.data.User
 import com.gocation.gocation_android.data.getAllUsersFromSnapshot
 import com.gocation.gocation_android.data.listenForAllUsers
+import com.gocation.gocation_android.messaging.ChatMessage
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.shitij.goyal.slidebutton.SwipeButton
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_profile.*
+import java.util.*
 
 /**
  * Created by dylanlange on 25/05/17.
@@ -55,6 +60,37 @@ class ProfileFragment: android.support.v4.app.Fragment() {
 
         })
 
+        alert_btn.setOnTouchListener {
+            _, event ->
+            when(event.action) {
+                MotionEvent.ACTION_MOVE ->
+                    root_view.parent.requestDisallowInterceptTouchEvent(true)
+                MotionEvent.ACTION_BUTTON_RELEASE ->
+                    root_view.parent.requestDisallowInterceptTouchEvent(false)
+            }
+            false
+        }
+        alert_btn.addOnSwipeCallback(object: SwipeButton.Swipe {
+            override fun onButtonPress() {
+
+            }
+
+            override fun onSwipeCancel() {
+
+            }
+
+            override fun onSwipeConfirm() {
+                FirebaseDatabase.getInstance().getReference("messages").push().setValue(
+                        ChatMessage(
+                                name,
+                                imageUrl,
+                                getCurrentTime(),
+                                "SOS - $name"
+                        )
+                )
+            }
+        })
+
         Picasso.with(activity)
                 .load(imageUrl)
                 .into(iv_profile_image)
@@ -68,6 +104,17 @@ class ProfileFragment: android.support.v4.app.Fragment() {
         var view: View? =  inflater?.inflate(R.layout.fragment_profile, container, false)
 
         return view
+    }
+
+    private fun getCurrentTime(): String {
+        val c = Calendar.getInstance()
+        val day = c.get(Calendar.DATE)
+        val month = c.get(Calendar.MONTH).asMonth()
+        val sec = c.get(Calendar.SECOND)
+        val min = c.get(Calendar.MINUTE)
+        val hour = c.get(Calendar.HOUR_OF_DAY)
+
+        return "$day $month, $hour:$min:$sec"
     }
 
 }
